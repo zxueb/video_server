@@ -2,6 +2,9 @@ package dbops
 
 import (
 	"testing"
+	"strconv"
+	"time"
+	"fmt"
 )
 
 
@@ -17,14 +20,14 @@ func clearTables() {
 func TestMain(m *testing.M) {
 	clearTables()
 	m.Run()
-	clearTables()
+	//clearTables()
 }
 
 func TestUserWorkFlow(t *testing.T) {
-	t.Run("Add", testAddUser)
-	t.Run("Get", testGetUser)
-	t.Run("Del", testDeleteUser)
-	t.Run("Reget", testRegetUser)
+	// t.Run("Add", testAddUser)
+	// t.Run("Get", testGetUser)
+	// t.Run("Del", testDeleteUser)
+	// t.Run("Reget", testRegetUser)
 }
 
 func testAddUser(t *testing.T) {
@@ -33,7 +36,6 @@ func testAddUser(t *testing.T) {
 		t.Errorf("Error of AddUser: %v", err)
 	}
 }
-
 func testGetUser(t *testing.T) {
 	pwd, err := GetUserCredential("xue")
 	if pwd != "123" || err != nil {
@@ -59,18 +61,17 @@ func testRegetUser(t *testing.T) {
 	}
 }
 
-
 func TestVideoWorkFlow(t *testing.T) {
-	clearTables()
-	t.Run("PrepareUser", testAddUser)
-	t.Run("AddVideo", testAddVideoInfo)
-	t.Run("GetVideo", testGetVideoInfo)
-	t.Run("DelVideo", testDeleteVideoInfo)
-	t.Run("RegetVideo", testRegetVideoInfo)
+	// clearTables()
+	// t.Run("PrepareUser", testAddUser)
+	// t.Run("AddVideo", testAddVideoInfo)
+	// t.Run("GetVideo", testGetVideoInfo)
+	// t.Run("DelVideo", testDeleteVideoInfo)
+	// t.Run("RegetVideo", testRegetVideoInfo)
 }
 
 func testAddVideoInfo(t *testing.T) {
-	vi, err := AddNewVideo(1, "my-video")
+	vi, err := AddNewVideo(5, "my-video")
 	if err != nil {
 		t.Errorf("Error of AddVideoInfo: %v", err)
 	}
@@ -97,6 +98,43 @@ func testRegetVideoInfo(t *testing.T) {
 		t.Errorf("Error of RegetVideoInfo: %v", err)
 	}
 }
+
+func TestComments(t *testing.T) {
+	clearTables()
+	t.Run("AddUser", testAddUser)
+	t.Run("AddVideo",testAddVideoInfo)
+	t.Run("AddCommnets", testAddComments)
+	t.Run("ListComments", testListComments)
+}
+
+func testAddComments(t *testing.T) {
+	vid := tempvid
+	aid := 5
+	content := "I like this video"
+
+	err := AddNewComments(vid, aid, content)
+
+	if err != nil {
+		t.Errorf("Error of AddComments: %v", err)
+	}
+}
+
+func testListComments(t *testing.T) {
+	fmt.Printf("list comment")
+	vid := tempvid
+	from := 1514764800
+	to, _ := strconv.Atoi(strconv.FormatInt(time.Now().UnixNano()/1000000000, 10))
+
+	res, err := ListComments(vid, from, to)
+	if err != nil {
+		t.Errorf("Error of ListComments: %v", err)
+	}
+
+	for i, ele := range res {
+		fmt.Printf("comment: %d, %v \n", i, ele)
+	}
+}	
+
 
 
 
