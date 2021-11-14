@@ -2,7 +2,7 @@ package main
 
 import (
 	"github.com/julienschmidt/httprouter"
-	"golang-streaming/video_server/scheduler/taskrunner"
+	"github.com/zxueb/video_server/tree/main/scheduler/taskrunner"
 	"net/http"
 )
 
