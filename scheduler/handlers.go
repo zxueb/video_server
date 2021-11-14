@@ -2,7 +2,7 @@ package main
 
 import (
 	"github.com/julienschmidt/httprouter"
-	"github.com/zxueb/video_server/tree/main/scheduler/dbops"
+	"github.com/zxueb/video_server/scheduler/dbops"
 	"net/http"
 )
 
