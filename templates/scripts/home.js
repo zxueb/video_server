@@ -229,7 +229,7 @@ function getCookie(cname) {
 
 // DOM operations
 function selectVideo(vid) {
-    var url = 'http://' + window.location.hostname + ':8080/videos/'+ vid
+    var url = 'http://' + window.location.hostname + ':9000/videos/'+ vid
     var video = $("#curr-video");
     $("#curr-video:first-child").attr('src', url);
     $("#curr-video-name").text(currentVideo['name']);
@@ -408,7 +408,7 @@ function signinUser(callback) {
     }
 
     var reqBody = {
-        'user_name': username,
+        'username': username,
         'pwd': pwd
     }
 
@@ -454,7 +454,7 @@ function getUserId(callback) {
         url: 'http://' + window.location.hostname + ':8080/api',
         type: 'post',
         data: JSON.stringify(dat),
-        headers: {'X-Session-Id': session},
+        headers: {'X-Session-Id': session,'X-User-Name':uname},
         statusCode: {
             500: function() {
                 callback(null, "Internal Error");
@@ -488,7 +488,7 @@ function createVideo(vname, callback) {
         url  : 'http://' + window.location.hostname + ':8080/api',
         type : 'post',
         data : JSON.stringify(dat),
-        headers: {'X-Session-Id': session},
+        headers: {'X-Session-Id': session,'X-User-Name':uname},
         statusCode: {
             500: function() {
                 callback(null, "Internal error");
@@ -520,7 +520,7 @@ function listAllVideos(callback) {
         url  : 'http://' + window.location.hostname + ':8080/api',
         type : 'post',
         data : JSON.stringify(dat),
-        headers: {'X-Session-Id': session},
+        headers: {'X-Session-Id': session,'X-User-Name':uname},
         statusCode: {
             500: function() {
                 callback(null, "Internal error");
@@ -552,7 +552,7 @@ function deleteVideo(vid, callback) {
         url  : 'http://' + window.location.hostname + ':8080/api',
         type : 'post',
         data : JSON.stringify(dat),
-        headers: {'X-Session-Id': session},
+        headers: {'X-Session-Id': session,'X-User-Name':uname},
         statusCode: {
             500: function() {
                 callback(null, "Internal error");
@@ -591,7 +591,7 @@ function postComment(vid, content, callback) {
         url  : 'http://' + window.location.hostname + ':8080/api',
         type : 'post',
         data : JSON.stringify(dat),
-        headers: {'X-Session-Id': session},
+        headers: {'X-Session-Id': session,'X-User-Name':uname},
         statusCode: {
             500: function() {
                 callback(null, "Internal error");
@@ -623,7 +623,7 @@ function listAllComments(vid, callback) {
         url  : 'http://' + window.location.hostname + ':8080/api',
         type : 'post',
         data : JSON.stringify(dat),
-        headers: {'X-Session-Id': session},
+        headers: {'X-Session-Id': session,'X-User-Name':uname},
         statusCode: {
             500: function() {
                 callback(null, "Internal error");

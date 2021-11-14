@@ -1,7 +1,6 @@
 package main
 
 import (
-	"io"
 	"encoding/json"
 	"net/http"
 	"io/ioutil"
@@ -10,6 +9,7 @@ import (
 	"github.com/zxueb/video_server/api/defs"
 	"github.com/zxueb/video_server/api/dbops"
 	"github.com/zxueb/video_server/api/session"
+	"github.com/zxueb/video_server/api/utils"
 )
 
 func CreateUser(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
@@ -39,7 +39,7 @@ func CreateUser(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 
 func Login(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 	res, _ := ioutil.ReadAll(r.Body)
-	log.Printf("%s", res)
+	log.Printf("login res %s", res)
 	ubody := &defs.UserCredential{}
 	if err := json.Unmarshal(res, ubody); err != nil {
 		log.Printf("%s", err)

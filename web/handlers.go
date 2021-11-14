@@ -27,7 +27,7 @@ func homeHandler(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
 
 	if err != nil || err2 != nil {
 		p := &HomePage{Name: "Alan"}
-		t, e := template.ParseFiles("./templates/home.html")
+		t, e := template.ParseFiles("E:/Devops/video_server/templates/home.html")
 		if e != nil {
 			log.Printf("Parsing template home.html error: %s", e)
 			return
@@ -62,7 +62,7 @@ func userHomeHandler(w http.ResponseWriter, r *http.Request, ps httprouter.Param
 		p = &UserPage{Name: fname}
 	}
 
-	t, e := template.ParseFiles("./templates/userhome.html")
+	t, e := template.ParseFiles("E:/Devops/video_server/templates/userhome.html")
 	if e != nil {
 		log.Printf("Parsing userhome.html error: %s", e)
 		return
